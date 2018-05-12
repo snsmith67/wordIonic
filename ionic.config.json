@@ -1,0 +1,8 @@
+{
+  "name": "wordIonic",
+  "app_id": "3838729a",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

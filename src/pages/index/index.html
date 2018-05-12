@@ -1,0 +1,279 @@
+<!--
+  Generated template for the IndexPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="dark">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title text-center><img alt="logo" height="auto" src="assets/imgs/mt-logo-new1-1.png" > </ion-title>
+  </ion-navbar>
+
+    <!--<ion-searchbar
+    [(ngModel)]="searchKeyword"
+    (keyup.enter)="search(searchKeyword, $event)"
+    (ionInput)="onCancel($event)"
+    >
+    </ion-searchbar>-->
+</ion-header>
+
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+    pullicon="arrow-dropdown"
+    pullingtext="Pull to Refresh"
+    refreshingSpinner="circles"
+    refreshingText="Refreshing.."
+    ></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-segment [(ngModel)]="language">
+      <ion-segment-button value="home">Top News</ion-segment-button>
+      <ion-segment-button value="all">All News</ion-segment-button>
+      <!--<ion-segment-button value="hindi">Hindi</ion-segment-button>
+      <ion-segment-button value="marathi">Marathi</ion-segment-button>
+      <ion-segment-button value="english">English</ion-segment-button>-->
+    </ion-segment>
+    <div [ngSwitch]="language">
+
+        <ion-card *ngSwitchCase="'home'" class="isActive">
+            <h1 *ngIf="h_datas" padding color="saffron">Top Hindi News</h1>
+            <ion-list *ngFor="let hdata of h_datas">
+              <ion-item>
+                  <ion-thumbnail *ngFor="let thumbnail of hdata._embedded['wp:featuredmedia']" item-left>
+                      <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+              </ion-thumbnail>
+              <h2 [innerHTML]="hdata.title.rendered">
+                  {{hdata.title.rendered}}
+              </h2>
+              <p><ion-icon name="calendar"></ion-icon> {{hdata.date | date:'dd/MM/yyyy'}}</p>
+              <button ion-button color="saffron"
+                      *ngFor="let link of hdata._links.self"
+                      (click)="openSingle(link.href, hdata.title.rendered)"
+                      >
+                      <ion-icon name="arrow-forward"></ion-icon>&nbsp;&nbsp;READ
+                      </button>
+                      <button ion-button float-right color="saffron" (click)="share(hdata.link, hdata.title.rendered, hdata.excerpt.rendered)">
+                        <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
+              </button>
+              </ion-item>
+            </ion-list>
+
+            <h1 *ngIf="m_datas" padding color="saffron">Top Marathi News</h1>
+            <ion-list *ngFor="let mdata of m_datas">
+              <ion-item>
+                  <ion-thumbnail *ngFor="let thumbnail of mdata._embedded['wp:featuredmedia']" item-left>
+                      <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+              </ion-thumbnail>
+              <h2 [innerHTML]="mdata.title.rendered">
+                  {{mdata.title.rendered}}
+              </h2>
+              <p><ion-icon name="calendar"></ion-icon> {{mdata.date | date:'dd/MM/yyyy'}}</p>
+              <button ion-button color="saffron"
+                      *ngFor="let link of mdata._links.self"
+                      (click)="openSingle(link.href, mdata.title.rendered)"
+                      >
+                      <ion-icon name="arrow-forward"></ion-icon>&nbsp;&nbsp;READ
+                      </button>
+                      <button ion-button float-right color="saffron" (click)="share(mdata.link, mdata.title.rendered, mdata.excerpt.rendered)">
+                        <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
+              </button>
+              </ion-item>
+            </ion-list>
+
+
+            <h1 *ngIf="e_datas" padding color="saffron">Top English News</h1>
+            <ion-list *ngFor="let edata of e_datas">
+              <ion-item>
+                  <ion-thumbnail *ngFor="let thumbnail of edata._embedded['wp:featuredmedia']" item-left>
+                      <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+              </ion-thumbnail>
+              <h2 [innerHTML]="edata.title.rendered">
+                  {{edata.title.rendered}}
+              </h2>
+              <p><ion-icon name="calendar"></ion-icon> {{edata.date | date:'dd/MM/yyyy'}}</p>
+              <button ion-button color="saffron"
+                      *ngFor="let link of edata._links.self"
+                      (click)="openSingle(link.href, edata.title.rendered)"
+                      >
+                      <ion-icon name="arrow-forward"></ion-icon>&nbsp;&nbsp;READ
+                      </button>
+                      <button ion-button float-right color="saffron" (click)="share(edata.link, edata.title.rendered, edata.excerpt.rendered)">
+                        <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
+              </button>
+              </ion-item>
+            </ion-list>
+        </ion-card>
+
+              <ion-card *ngSwitchCase="'all'">
+                
+                  <ion-searchbar
+                  [(ngModel)]="searchKeyword"
+                  (keyup.enter)="search(searchKeyword, $event)"
+                  (ionInput)="onCancel($event)"
+                  >
+                  </ion-searchbar>
+                  <div *ngIf="searchType" class="spinner-container" name="bubbles" text-center>
+                    <ion-spinner></ion-spinner>
+                  </div>
+
+                  <ion-list *ngFor="let data of datas">
+                      <ion-item>
+                        <ion-thumbnail *ngFor="let thumbnail of data._embedded['wp:featuredmedia']" item-left>
+                                <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+                        </ion-thumbnail>
+                      <h2 [innerHTML]="data.title.rendered">
+                          {{data.title.rendered}}
+                      </h2>
+                      <p><ion-icon name="calendar"></ion-icon> {{data.date | date:'dd/MM/yyyy'}}</p>
+                
+                      <button ion-button color="saffron"
+                      *ngFor="let link of data._links.self"
+                      (click)="openSingle(link.href, data.title.rendered)"
+                      >
+                      <ion-icon name="arrow-forward"></ion-icon>&nbsp;&nbsp;READ
+                      </button>
+                      <button ion-button float-right color="saffron" (click)="share(data.link, data.title.rendered, data.excerpt.rendered)">
+                        <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
+                      </button>
+                
+                    </ion-item>
+                        <!--<ion-card>
+                          <div *ngFor="let thumbnail of data._embedded['wp:featuredmedia']">
+                            <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+                          </div>
+                          <ion-item *ngFor="let author of data._embedded.author">
+                           <ion-avatar item-left>
+                              <img [src]="author.avatar_urls['24']"/>
+                            </ion-avatar>
+                            <h1>{{author.name}}</h1>
+                            <p><ion-icon name="time"></ion-icon> {{data.date | date:'dd/MM/yyyy hh:mm'}} </p>
+                          </ion-item>
+                          <ion-card-content>
+                            <ion-card-title [innerHTML]="data.title.rendered">
+                              {{data.title.rendered}}
+                            </ion-card-title>
+                            <div [innerHTML]="data.excerpt.rendered" text-justify>
+                              {{data.excerpt.rendered}}
+                            </div>
+                          </ion-card-content>
+                          <button margin-left ion-button color="saffron"
+                          *ngFor="let link of data._links.self"
+                          (click)="openSingle(link.href, data.title.rendered)"
+                          >
+                            READ MORE
+                          </button>
+                          <button ion-button float-right margin-right color="saffron" (click)="share(data.link, data.title.rendered, data.excerpt.rendered)">
+                            <ion-icon ios="ios-share" md="md-share"></ion-icon> &nbsp;&nbsp;SHARE
+                          </button>
+                        </ion-card>-->
+                      </ion-list>
+                      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                          <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+                        </ion-infinite-scroll>
+                      
+              </ion-card>
+      
+            <!--<ion-card *ngSwitchCase="'hindi'">
+              <ion-list *ngFor="let data of h_datas">
+                <ion-item>
+                  <ion-thumbnail *ngFor="let thumbnail of data._embedded['wp:featuredmedia']" item-left>
+                          <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+                  </ion-thumbnail>
+                <h2 [innerHTML]="data.title.rendered">
+                    {{data.title.rendered}}
+                </h2>
+                <p><ion-icon name="calendar"></ion-icon> {{data.date | date:'dd/MM/yyyy'}}</p>
+          
+                <button ion-button color="saffron"
+                *ngFor="let link of data._links.self"
+                (click)="openSingle(link.href, data.title.rendered)"
+                >
+                <ion-icon name="arrow-forward"></ion-icon>&nbsp;&nbsp;READ
+                </button>
+                <button ion-button float-right color="saffron" (click)="share(data.link, data.title.rendered, data.excerpt.rendered)">
+                  <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
+                </button>
+              </ion-item>
+            </ion-list>
+            </ion-card>
+  
+             <ion-card *ngSwitchCase="'marathi'">
+              <ion-list *ngFor="let mdata of datas">
+                <ion-item>
+                    <ion-thumbnail *ngFor="let thumbnail of mdata._embedded['wp:featuredmedia']" item-left>
+                        <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+                    </ion-thumbnail>
+                    <h2 [innerHTML]="mdata.title.rendered">
+                        {{mdata.title.rendered}}
+                    </h2>
+                    <p><ion-icon name="calendar"></ion-icon> {{mdata.date | date:'dd/MM/yyyy'}}</p>
+                      <button ion-button color="saffron"
+                      *ngFor="let link of mdata._links.self"
+                      (click)="openSingle(link.href, mdata.title.rendered)"
+                      >
+                      <ion-icon name="arrow-forward"></ion-icon>&nbsp;&nbsp;READ
+                      </button>
+                      <button ion-button float-right color="saffron" (click)="share(mdata.link, mdata.title.rendered, mdata.excerpt.rendered)">
+                        <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
+                      </button>
+                </ion-item>
+
+              </ion-list>
+            </ion-card>
+  
+            <ion-card *ngSwitchCase="'english'">
+              <div *ngIf="e_datas">
+              <ion-list *ngFor="let edata of e_datas">
+                <ion-item>
+                  <ion-thumbnail *ngFor="let thumbnail of edata._embedded['wp:featuredmedia']" item-left>
+                      <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+                  </ion-thumbnail>
+                  <h2 [innerHTML]="edata.title.rendered">
+                      {{edata.title.rendered}}
+                  </h2>
+                  <p><ion-icon name="calendar"></ion-icon> {{edata.date | date:'dd/MM/yyyy'}}</p>
+
+                  <button ion-button color="saffron"
+                      *ngFor="let link of edata._links.self"
+                      (click)="openSingle(link.href, edata.title.rendered)"
+                      >
+                      <ion-icon name="arrow-forward"></ion-icon>&nbsp;&nbsp;READ
+                      </button>
+                      <button ion-button float-right color="saffron" (click)="share(edata.link, edata.title.rendered, edata.excerpt.rendered)">
+                        <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
+                      </button>
+                </ion-item>
+              </ion-list>
+              </div>
+            </ion-card>-->
+    </div>
+
+    
+
+      <ion-fab right bottom>
+        <button ion-fab color="dark"><ion-icon name="arrow-dropleft"></ion-icon></button>
+        <ion-fab-list side="left">
+          <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+</ion-content>
+
+<!--<ion-footer>
+  <ion-toolbar> 
+      <ion-icon name="home"></ion-icon>
+      <ion-icon name="car"></ion-icon>
+      <ion-icon name="bus"></ion-icon>
+      <ion-icon name="apps"></ion-icon>
+    <ion-title>&copy; 2018. All rights Reserved.</ion-title>
+  </ion-toolbar>
+</ion-footer>-->
