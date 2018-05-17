@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="dark">
-    <ion-title>single</ion-title>
+    <ion-title [innerHTML]="title" style="color:#FFF;"></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -20,6 +20,9 @@
   </ion-segment>
   <div [ngSwitch]="segment">
     <ion-card *ngSwitchCase="'posts'">
+        <div *ngIf="searchKey" class="spinner-container" loadingSpinner="bubbles" text-center padding>
+            <ion-spinner name="bubbles"></ion-spinner> Loading...
+          </div>
       <div *ngFor="let data of datas">
             <div *ngFor="let thumbnail of data._embedded['wp:featuredmedia']">
               <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url">
@@ -28,7 +31,7 @@
               <!--<ion-avatar item-left>
                 <img [src]="author.avatar_urls['24']" />
               </ion-avatar>-->
-              <h1>{{author.name}}</h1>
+              <h1>{{author.name}} </h1>
               <p><ion-icon name="time"></ion-icon> {{data.date | moment}}</p>
             </ion-item>
             <ion-card-content>
@@ -40,7 +43,30 @@
               </div>
               
             </ion-card-content>
+            <button ion-button full margin-right color="saffron" (click)="share(data.link, data.title.rendered, data.excerpt.rendered)">
+                <ion-icon ios="ios-share" md="md-share"></ion-icon> &nbsp;&nbsp;SHARE
+              </button>    
       </div>
+    
+      <!--Related Posts-->
+      <div padding>
+          <h1>Recent Posts</h1>
+          <ion-list *ngFor="let hdata of h_datas">
+              
+              <ion-item *ngFor="let link of hdata._links.self"
+              (click)="openSingle(link.href, hdata.title.rendered)">
+                  <ion-thumbnail *ngFor="let thumbnail of hdata._embedded['wp:featuredmedia']" item-left>
+                      <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+              </ion-thumbnail>
+              <h4 [innerHTML]="hdata.title.rendered" text-wrap>
+                  {{hdata.title.rendered}}
+              </h4>
+              <p><ion-icon name="calendar"></ion-icon> {{hdata.date | date:'dd/MM/yyyy'}}</p>
+              <!--<div [innerHTML]="hdata.excerpt.rendered"></div>-->
+              </ion-item>
+            </ion-list>
+          </div>
+          <!--/Related Posts-->
     </ion-card>
     
           <ion-card *ngSwitchCase="'comment'">
@@ -62,5 +88,8 @@
               </ion-card-content>
             </div>
           </ion-card>
+          <div text-center padding color="dark">
+              <img alt="logo" height="auto" width="150px" src="assets/imgs/mt-logo-new1-1.png" style="background: #000;"><br />
+            Maharashtra today &copy; 2018. All rights Reserved.</div>
   </div>
 </ion-content>

@@ -26,11 +26,15 @@ export class CategoryPage {
   file:string = null;
   link:string = null;
   subject:string = null;
-
+  searchKey:boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private toastCtrl: ToastController, private api:Wpapi, private socialSharing: SocialSharing) {
     api.posts_category(navParams.data.id, 1).subscribe(datas => {
+      //this.searchKey = true;
+      //alert('loading...');
       this.datas = datas;
+      this.searchKey = false;
+      //alert(datas);
     })
   }
 

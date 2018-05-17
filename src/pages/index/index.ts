@@ -23,6 +23,10 @@ export class IndexPage {
   e_datas:any = [];
   searchKeyword:string ="";
   searchType:boolean = false;
+  searchKey:boolean = false;
+  loadingKey:boolean = true;
+  mloadingKey:boolean = true;
+  hloadingKey:boolean = true;
   pagination:number = 1;
 
   message:string = null;
@@ -38,20 +42,23 @@ export class IndexPage {
     });
     api.post_category_hindi().subscribe(h_datas => {
       this.h_datas = h_datas;
+      this.hloadingKey = false;
       console.log(h_datas);
     });
     api.post_category_marathi().subscribe(m_datas => {
       this.m_datas = m_datas;
+      this.mloadingKey = false;
       console.log(m_datas);
     });
     api.post_category_english().subscribe(e_datas => {
       this.e_datas = e_datas;
+      this.loadingKey = false;
       console.log(e_datas);
     });
   }
 
   openSingle(url, title){
-    //alert('hi');
+    //alert(categories);
     this.navCtrl.push(SinglePage, {
       url: url,
       title:title
@@ -59,11 +66,11 @@ export class IndexPage {
   }
 
   search(keyword){
-    this.searchType = true;
+    this.searchKey = true;
     this.api.search(keyword, 1).subscribe(datas => {
       this.datas = datas;
       console.log(datas);
-      this.searchType = false;
+      this.searchKey = false;
     });
   }
 

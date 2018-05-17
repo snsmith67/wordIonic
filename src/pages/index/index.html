@@ -44,38 +44,46 @@
 
         <ion-card *ngSwitchCase="'home'" class="isActive">
             <h1 *ngIf="h_datas" padding color="saffron">Top Hindi News</h1>
+            <div *ngIf="hloadingKey" class="spinner-container" loadingSpinner="bubbles" text-center>
+                <ion-spinner name="bubbles"></ion-spinner> Loading...
+              </div>
             <ion-list *ngFor="let hdata of h_datas">
-              <ion-item>
+              <ion-item *ngFor="let link of hdata._links.self"
+              (click)="openSingle(link.href, hdata.title.rendered, hdata.categories)">
                   <ion-thumbnail *ngFor="let thumbnail of hdata._embedded['wp:featuredmedia']" item-left>
                       <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
               </ion-thumbnail>
-              <h2 [innerHTML]="hdata.title.rendered">
+              <h4 [innerHTML]="hdata.title.rendered" text-wrap>
                   {{hdata.title.rendered}}
-              </h2>
+              </h4>
               <p><ion-icon name="calendar"></ion-icon> {{hdata.date | date:'dd/MM/yyyy'}}</p>
-              <button ion-button color="saffron"
+              <!--<button ion-button color="saffron"
                       *ngFor="let link of hdata._links.self"
-                      (click)="openSingle(link.href, hdata.title.rendered)"
+                      (click)="openSingle(link.href, hdata.title.rendered, hdata.categories)"
                       >
                       <ion-icon name="arrow-forward"></ion-icon>&nbsp;&nbsp;READ
                       </button>
                       <button ion-button float-right color="saffron" (click)="share(hdata.link, hdata.title.rendered, hdata.excerpt.rendered)">
                         <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
-              </button>
+              </button>-->
               </ion-item>
             </ion-list>
 
             <h1 *ngIf="m_datas" padding color="saffron">Top Marathi News</h1>
+            <div *ngIf="mloadingKey" class="spinner-container" loadingSpinner="bubbles" text-center>
+                <ion-spinner name="bubbles"></ion-spinner> Loading...
+              </div>
             <ion-list *ngFor="let mdata of m_datas">
-              <ion-item>
+              <ion-item *ngFor="let link of mdata._links.self"
+              (click)="openSingle(link.href, mdata.title.rendered)">
                   <ion-thumbnail *ngFor="let thumbnail of mdata._embedded['wp:featuredmedia']" item-left>
                       <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
               </ion-thumbnail>
-              <h2 [innerHTML]="mdata.title.rendered">
+              <h4 [innerHTML]="mdata.title.rendered" text-wrap>
                   {{mdata.title.rendered}}
-              </h2>
+              </h4>
               <p><ion-icon name="calendar"></ion-icon> {{mdata.date | date:'dd/MM/yyyy'}}</p>
-              <button ion-button color="saffron"
+              <!--<button ion-button color="saffron"
                       *ngFor="let link of mdata._links.self"
                       (click)="openSingle(link.href, mdata.title.rendered)"
                       >
@@ -83,22 +91,26 @@
                       </button>
                       <button ion-button float-right color="saffron" (click)="share(mdata.link, mdata.title.rendered, mdata.excerpt.rendered)">
                         <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
-              </button>
+              </button>-->
               </ion-item>
             </ion-list>
 
 
             <h1 *ngIf="e_datas" padding color="saffron">Top English News</h1>
+            <div *ngIf="loadingKey" class="spinner-container" loadingSpinner="bubbles" text-center>
+                <ion-spinner name="bubbles"></ion-spinner> Loading...
+              </div>
             <ion-list *ngFor="let edata of e_datas">
-              <ion-item>
+              <ion-item *ngFor="let link of edata._links.self"
+              (click)="openSingle(link.href, edata.title.rendered)">
                   <ion-thumbnail *ngFor="let thumbnail of edata._embedded['wp:featuredmedia']" item-left>
                       <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
               </ion-thumbnail>
-              <h2 [innerHTML]="edata.title.rendered">
+              <h4 [innerHTML]="edata.title.rendered" text-wrap>
                   {{edata.title.rendered}}
-              </h2>
+              </h4>
               <p><ion-icon name="calendar"></ion-icon> {{edata.date | date:'dd/MM/yyyy'}}</p>
-              <button ion-button color="saffron"
+              <!--<button ion-button color="saffron"
                       *ngFor="let link of edata._links.self"
                       (click)="openSingle(link.href, edata.title.rendered)"
                       >
@@ -106,7 +118,7 @@
                       </button>
                       <button ion-button float-right color="saffron" (click)="share(edata.link, edata.title.rendered, edata.excerpt.rendered)">
                         <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
-              </button>
+              </button>-->
               </ion-item>
             </ion-list>
         </ion-card>
@@ -119,21 +131,21 @@
                   (ionInput)="onCancel($event)"
                   >
                   </ion-searchbar>
-                  <div *ngIf="searchType" class="spinner-container" name="bubbles" text-center>
-                    <ion-spinner></ion-spinner>
+                  <div *ngIf="searchKey" class="spinner-container" loadingSpinner="bubbles" text-center>
+                    <ion-spinner name="bubbles"></ion-spinner> Loading...
                   </div>
 
                   <ion-list *ngFor="let data of datas">
-                      <ion-item>
+                      <ion-item *ngFor="let link of data._links.self" (click)="openSingle(link.href, data.title.rendered)">
                         <ion-thumbnail *ngFor="let thumbnail of data._embedded['wp:featuredmedia']" item-left>
                                 <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
                         </ion-thumbnail>
-                      <h2 [innerHTML]="data.title.rendered">
+                      <h4 [innerHTML]="data.title.rendered" text-wrap>
                           {{data.title.rendered}}
-                      </h2>
+                      </h4>
                       <p><ion-icon name="calendar"></ion-icon> {{data.date | date:'dd/MM/yyyy'}}</p>
                 
-                      <button ion-button color="saffron"
+                      <!--<button ion-button color="saffron"
                       *ngFor="let link of data._links.self"
                       (click)="openSingle(link.href, data.title.rendered)"
                       >
@@ -141,7 +153,7 @@
                       </button>
                       <button ion-button float-right color="saffron" (click)="share(data.link, data.title.rendered, data.excerpt.rendered)">
                         <ion-icon ios="ios-share" md="md-share"></ion-icon>&nbsp;&nbsp;SHARE
-                      </button>
+                      </button>-->
                 
                     </ion-item>
                         <!--<ion-card>
@@ -266,6 +278,11 @@
           <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
         </ion-fab-list>
       </ion-fab>
+
+      <div text-center padding color="dark">
+          <img alt="logo" height="auto" width="150px" src="assets/imgs/mt-logo-new1-1.png" style="background: #000;"><br />
+        Maharashtra today &copy; 2018. All rights Reserved.
+      </div>
 </ion-content>
 
 <!--<ion-footer>

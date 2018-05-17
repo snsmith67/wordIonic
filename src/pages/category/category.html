@@ -14,16 +14,13 @@
 
 
 <ion-content>
-  <ion-list *ngFor="let data of datas">
+  <!--<ion-list *ngFor="let data of datas">
     <ion-card>
-      {{data.name}}
       <div *ngFor="let thumbnail of data._embedded['wp:featuredmedia']">
         <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
       </div>
       <ion-item *ngFor="let author of data._embedded.author">
-        <!--<ion-avatar item-left>
-          <img [src]="author.avatar_urls['24']"/>
-        </ion-avatar>-->
+       
         <h1>{{author.name}}</h1>
         <p><ion-icon name="time"></ion-icon> {{data.date | moment}} </p>
       </ion-item>
@@ -49,6 +46,29 @@
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll>-->
 
+  <ion-card>
+      <div *ngIf="searchKey" class="spinner-container" loadingSpinner="bubbles" text-center padding>
+          <ion-spinner name="bubbles"></ion-spinner> Loading...
+        </div>
+      <ion-list *ngFor="let data of datas">
+          <ion-item *ngFor="let link of data._links.self" (click)="openSingle(link.href, data.title.rendered)">
+            <ion-thumbnail *ngFor="let thumbnail of data._embedded['wp:featuredmedia']" item-left>
+                    <img *ngIf="thumbnail.source_url" [src]="thumbnail.source_url"/>
+            </ion-thumbnail>
+          <h4 [innerHTML]="data.title.rendered" text-wrap>
+              {{data.title.rendered}}
+          </h4>
+          <p><ion-icon name="calendar"></ion-icon> {{data.date | moment}}</p>
+        </ion-item>
+          </ion-list>
+          <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+              <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+  </ion-card>
+  <div text-center padding color="dark">
+      <img alt="logo" height="auto" width="150px" src="assets/imgs/mt-logo-new1-1.png" style="background: #000;"><br />
+    Maharashtra today &copy; 2018. All rights Reserved.
+  </div>
 </ion-content>
