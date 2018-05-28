@@ -141,7 +141,7 @@ export class IndexPage {
     //alert(url);
     console.log("new"+title+"message:"+url);
      //this.socialSharing.share(message, title, this.file, url)
-     this.socialSharing.share(title, url)
+     this.socialSharing.share(title, url, message)
      .then(() => {
  
      }).catch(() => {

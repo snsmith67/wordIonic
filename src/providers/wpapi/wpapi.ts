@@ -19,38 +19,38 @@ export class Wpapi {
   }
 
   index(id){
-    return this.http.get('http://localhost/smith/wordApp/wp-json/wp/v2/posts/?_embed&?filter[order]=DESC&filter[posts_per_page]=5&page='+id)
+    return this.http.get('http://webbetasolutions.com/test/trademark/wp-json/wp/v2/posts/?_embed&?filter[order]=DESC&filter[posts_per_page]=5&page='+id)
     .map(data => data.json());
   }
 
   search(keyword,id){
-    return this.http.get("http://localhost/smith/wordApp/wp-json/wp/v2/posts?_embed&?filter[order]=DESC&filter[posts_per_page]=5&search="+ keyword +"&page="+id)
+    return this.http.get("http://webbetasolutions.com/test/trademark/wp-json/wp/v2/posts?_embed&?filter[order]=DESC&filter[posts_per_page]=5&search="+ keyword +"&page="+id)
     .map(data => data.json());
   }
 
 
   category(){
-    return this.http.get('http://localhost/smith/wordApp/wp-json/menus/v1/menus/top')
+    return this.http.get('http://webbetasolutions.com/test/trademark/wp-json/menus/v1/menus/top')
     .map(data => data.json());
   }
 
   posts_category(id,page){
-    return this.http.get("http://localhost/smith/wordApp/wp-json/wp/v2/posts?_embed&categories="+id+"&filter[order]=DESC&filter[posts_per_page]=5&page="+page)
+    return this.http.get("http://webbetasolutions.com/test/trademark/wp-json/wp/v2/posts?_embed&categories="+id+"&filter[order]=DESC&filter[posts_per_page]=5&page="+page)
     .map(data => data.json());
   }
 
   post_category_hindi(){
-    return this.http.get("http://localhost/smith/wordApp/wp-json/wp/v2/posts?_embed&categories=3&filter[order]=DESC&filter[posts_per_page]=5")
+    return this.http.get("http://webbetasolutions.com/test/trademark/wp-json/wp/v2/posts?_embed&categories=3&filter[order]=DESC&filter[posts_per_page]=5")
     .map(data => data.json());
   }
 
   post_category_marathi(){
-    return this.http.get("http://localhost/smith/wordApp/wp-json/wp/v2/posts?_embed&categories=4&filter[order]=DESC&filter[posts_per_page]=5")
+    return this.http.get("http://webbetasolutions.com/test/trademark/wp-json/wp/v2/posts?_embed&categories=4&filter[order]=DESC&filter[posts_per_page]=5")
     .map(data => data.json());
   }
 
   post_category_english(){
-    return this.http.get("http://localhost/smith/wordApp/wp-json/wp/v2/posts?_embed&categories=2&filter[order]=DESC&filter[posts_per_page]=5")
+    return this.http.get("http://webbetasolutions.com/test/trademark/wp-json/wp/v2/posts?_embed&categories=2&filter[order]=DESC&filter[posts_per_page]=5")
     .map(data => data.json());
   }
 

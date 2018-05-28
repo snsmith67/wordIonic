@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { CategoryPage } from '../pages/category/category';
 import{ IndexPage } from '../pages/index/index';
 import { Wpapi } from '../providers/wpapi/wpapi';
+import { FCM } from '@ionic-native/fcm';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class MyApp {
   isHome:boolean = false;
   //pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private api: Wpapi) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private api: Wpapi,private fcm: FCM) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -53,6 +54,28 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      //New FCM
+      this.fcm.subscribeToTopic('all');
+      this.fcm.getToken().then(token => {
+        // backend.registerToken(token);
+        console.log(token);
+      });
+      this.fcm.onNotification().subscribe(data => {
+        alert('message received')
+        if(data.wasTapped) {
+        console.info("Received in background");
+        } else {
+        console.info("Received in foreground");
+        };
+      });
+      this.fcm.onTokenRefresh().subscribe(token => {
+        // backend.registerToken(token);
+        console.log(token);
+      });
+
+
+
     });
   }
 
@@ -71,4 +94,6 @@ export class MyApp {
     this.nav.setRoot(IndexPage);
     this.isHome = false;
   }
+
+  
 }

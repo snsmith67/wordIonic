@@ -38,17 +38,19 @@ export class SinglePage {
       this.searchKey = false;
     });
 
-    api.post_category_hindi().subscribe(h_datas => {
+    api.index(1).subscribe(h_datas => {
       this.h_datas = h_datas;
       console.log(h_datas);
     });
   }
 
-  share(url, title){
-    alert(title);
-    console.log("new"+title+"message:"+url);
+  share(url, title, message){
+    //alert(title);
+    var n_url = '<a href="'+url+'">';
+    console.log("title: "+title+"url: "+n_url+ "message: "+message);
      //this.socialSharing.share(message, title, this.file, url)
-     this.socialSharing.share(title, url)
+     //this.socialSharing.share(title, url)
+     this.socialSharing.share(title, n_url, message)
      .then(() => {
  
      }).catch(() => {

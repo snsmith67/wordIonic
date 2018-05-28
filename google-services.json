@@ -1,27 +1,31 @@
 {
   "project_info": {
-    "project_number": "404674823798",
-    "firebase_url": "https://wordionic-7b9c1.firebaseio.com",
-    "project_id": "wordionic-7b9c1",
-    "storage_bucket": "wordionic-7b9c1.appspot.com"
+    "project_number": "563187957544",
+    "firebase_url": "https://wordionicpush.firebaseio.com",
+    "project_id": "wordionicpush",
+    "storage_bucket": "wordionicpush.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:404674823798:android:764d2cb7da3280eb",
+        "mobilesdk_app_id": "1:563187957544:android:dc1458503f1e7938",
         "android_client_info": {
-          "package_name": "io.ionic.starter"
+          "package_name": "com.new.wordIonicpush"
         }
       },
       "oauth_client": [
         {
-          "client_id": "404674823798-tnchqb3860i64lo6qvfnraaeko0eae7q.apps.googleusercontent.com",
+          "client_id": "563187957544-jkt2eca6quftjcos19hvhb5113of0kq6.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "563187957544-jkt2eca6quftjcos19hvhb5113of0kq6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAozjuItcGdPG0ef0E25gJ99jq47fC-DqY"
+          "current_key": "AIzaSyBpL5aKYMc13gdVuAKcgxDpsiLtvk0vbrQ"
         }
       ],
       "services": {

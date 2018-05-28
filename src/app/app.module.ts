@@ -18,6 +18,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 
 
 import { HttpModule } from '@angular/http';
+import { FCM } from '@ionic-native/fcm';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { HttpModule } from '@angular/http';
   providers: [
     StatusBar,
     SplashScreen,
-    SocialSharing,
+    SocialSharing,FCM,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Wpapi
   ]
